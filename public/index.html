@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SpeedPulse - Free Internet Speed Test</title>
+  <meta name="description" content="Test your internet download speed, upload speed, ping and jitter in seconds. Free, no app, no sign-up.">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/config.js"></script>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="/">Speed<span>Pulse</span></a>
+    <nav><a href="#history">History</a><a href="/privacy.html">Privacy</a></nav>
+  </header>
+
+  <div class="ad" data-slot="top" hidden></div>
+
+  <main>
+    <section class="meter">
+      <svg viewBox="0 0 300 200" class="gauge" aria-hidden="true">
+        <path id="gaugeTrack" class="track" d=""/>
+        <path id="gaugeFill" class="fill" d=""/>
+        <g id="gaugeTicks"></g>
+      </svg>
+      <div class="readout">
+        <div id="speed" class="speed">0</div>
+        <div class="unit">Mbps</div>
+        <div id="phase" class="phase">Ready</div>
+      </div>
+      <button id="go" class="go">GO</button>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><span class="label">Ping</span><span id="ping" class="value">-</span><span class="small">ms</span></div>
+      <div class="stat"><span class="label">Jitter</span><span id="jitter" class="value">-</span><span class="small">ms</span></div>
+      <div class="stat"><span class="label">Download</span><span id="down" class="value">-</span><span class="small">Mbps</span></div>
+      <div class="stat"><span class="label">Upload</span><span id="up" class="value">-</span><span class="small">Mbps</span></div>
+    </section>
+
+    <section class="conn">
+      <div><span class="label">Provider</span> <span id="isp">-</span></div>
+      <div><span class="label">IP</span> <span id="ip">-</span></div>
+      <div><span class="label">Location</span> <span id="loc">-</span></div>
+      <div><span class="label">Server</span> <span id="colo">-</span></div>
+    </section>
+
+    <section id="verdict" class="verdict" hidden></section>
+
+    <section id="share" class="share" hidden>
+      <button id="copyLink">Copy result link</button>
+      <a id="tweet" target="_blank" rel="noopener">Share on X</a>
+    </section>
+
+    <aside id="offer" class="offer" hidden>
+      <strong id="offerTitle"></strong>
+      <p id="offerText"></p>
+      <a id="offerCta" target="_blank" rel="sponsored noopener"></a>
+      <small>Sponsored</small>
+    </aside>
+
+    <div class="ad" data-slot="result" hidden></div>
+
+    <section id="history" class="history">
+      <h2>Your recent tests</h2>
+      <p class="muted">Stored only in this browser.</p>
+      <ol id="historyList"></ol>
+      <button id="clearHistory" class="link">Clear history</button>
+    </section>
+
+    <section class="faq">
+      <h2>What do these numbers mean?</h2>
+      <p><b>Download</b> is how fast data reaches you: streaming, browsing, downloads. 25 Mbps handles one 4K stream; 100+ Mbps suits a busy household.</p>
+      <p><b>Upload</b> is how fast you send data: video calls, cloud backups, live streaming. 10 Mbps or more keeps HD calls smooth.</p>
+      <p><b>Ping</b> is the round-trip delay to the test server. Under 30 ms feels instant; gamers want under 20 ms.</p>
+      <p><b>Jitter</b> is how much ping varies. Under 10 ms keeps calls and games stable.</p>
+      <p>For the most accurate result, use a wired connection and pause other downloads.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>&copy; <span id="year"></span> SpeedPulse</span>
+    <a href="/privacy.html">Privacy</a>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
