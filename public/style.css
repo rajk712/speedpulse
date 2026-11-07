@@ -32,6 +32,9 @@ a { color: var(--accent); }
 }
 .brand { font-size: 22px; font-weight: 800; color: var(--text); text-decoration: none; }
 .brand span { color: var(--accent); }
+.brandwrap { display: flex; align-items: baseline; gap: 10px; }
+.by { color: var(--muted); font-size: 13px; text-decoration: none; }
+.by:hover, footer a.owner { color: var(--accent); }
 .top nav a { margin-left: 18px; color: var(--muted); text-decoration: none; }
 
 main { max-width: 960px; margin: 0 auto; padding: 0 16px 40px; }
@@ -140,6 +143,7 @@ footer {
   font-size: 13px;
 }
 footer a { margin-left: 12px; color: var(--muted); }
+footer a.owner { margin-left: 0; font-weight: 600; }
 
 @media (max-width: 640px) {
   .stats, .conn { grid-template-columns: repeat(2, 1fr); }
