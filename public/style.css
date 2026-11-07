@@ -88,6 +88,8 @@ main { max-width: 960px; margin: 0 auto; padding: 0 16px 40px; }
 .conn > div { background: var(--panel); border-radius: 12px; padding: 10px 14px; overflow-wrap: anywhere; }
 .conn .label { display: block; margin-bottom: 2px; }
 
+[hidden] { display: none !important; }
+
 .verdict, .share, .offer, .history, .faq {
   background: var(--panel);
   border-radius: 12px;

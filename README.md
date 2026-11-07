@@ -2,7 +2,7 @@
 
 Internet speed test (ping, jitter, download, upload) in the style of speedtest.net, fast.com and nperf.com.
 
-**Live:** https://speedpulse.speedpulse.workers.dev
+**Live:** https://speedpulse.rajeevkumar.workers.dev
 
 It runs on Cloudflare Workers, so the test server sits in 300+ cities with no servers for you to manage.
 
