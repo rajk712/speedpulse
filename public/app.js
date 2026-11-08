@@ -8,7 +8,12 @@
   const TEST_MS = 10000;
   const WARMUP_MS = 1500;
   const UP_BLOB_BYTES = 8 * 1024 * 1024;
-  const GAUGE_MAX = 1000;
+  // Scale grows to 10 Gbps once a reading passes 1 Gbps, so multi-gig lines don't pin the needle.
+  const SCALES = [
+    { max: 1000, ticks: [0, 5, 10, 50, 100, 250, 500, 1000] },
+    { max: 10000, ticks: [0, 10, 50, 100, 500, 1000, 2500, 5000, 10000] },
+  ];
+  let scale = SCALES[0];
   const HISTORY_KEY = "speedpulse.history";
 
   // ---------- gauge ----------
@@ -28,22 +33,30 @@
     return `M ${x1} ${y1} A ${R} ${R} 0 ${large} 1 ${x2} ${y2}`;
   }
 
-  const toFrac = (mbps) => Math.log10(1 + mbps) / Math.log10(1 + GAUGE_MAX);
+  const toFrac = (mbps) => Math.log10(1 + mbps) / Math.log10(1 + scale.max);
 
   function drawTicks() {
     const g = $("gaugeTicks");
-    for (const v of [0, 5, 10, 50, 100, 250, 500, 1000]) {
+    g.replaceChildren();
+    for (const v of scale.ticks) {
       const deg = START + SWEEP * toFrac(v);
       const rad = (deg * Math.PI) / 180;
       const t = document.createElementNS("http://www.w3.org/2000/svg", "text");
       t.setAttribute("x", CX + (R - 26) * Math.cos(rad));
       t.setAttribute("y", CY + (R - 26) * Math.sin(rad) + 4);
-      t.textContent = v;
+      t.textContent = v >= 1000 ? `${v / 1000}G` : v;
       g.appendChild(t);
     }
   }
 
+  function setScale(next) {
+    if (next === scale) return;
+    scale = next;
+    drawTicks();
+  }
+
   function setGauge(mbps) {
+    if (mbps > scale.max) setScale(SCALES.find((sc) => mbps <= sc.max) || SCALES[SCALES.length - 1]);
     $("gaugeFill").setAttribute("d", arcPath(toFrac(mbps)));
     $("speed").textContent = fmt(mbps);
   }
@@ -240,6 +253,7 @@
     btn.disabled = true;
     for (const id of ["verdict", "share", "offer"]) $(id).hidden = true;
     for (const id of ["ping", "jitter", "down", "up"]) $(id).textContent = "-";
+    setScale(SCALES[0]);
 
     try {
       const meta = await loadMeta();
